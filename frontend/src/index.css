@@ -1,0 +1,344 @@
+@import "tailwindcss";
+
+:root {
+  font-family:
+    Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --color-bg: #020617;
+  --color-bg-soft: #07130f;
+
+  --color-surface: #0f1f1a;
+  --color-surface-elevated: #122820;
+
+  --color-border: rgba(16, 185, 129, 0.24);
+  --color-border-soft: rgba(6, 78, 59, 0.45);
+
+  --color-primary: #10b981;
+  --color-primary-hover: #047857;
+  --color-primary-soft: rgba(16, 185, 129, 0.1);
+  --color-primary-border: rgba(0, 0, 0, 0.3);
+
+  --color-hover: rgba(16, 185, 129, 0.16);
+
+  --color-text: #f8fafc;
+  --color-text-muted: #a7b8b1;
+  --color-text-weak: #6b7f76;
+
+  --color-card-shadow: rgba(6, 78, 59, 0.2);
+
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+  --color-info: #38bdf8;
+
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+:root[data-theme="light"] {
+  --color-bg: #22c55e;
+  --color-bg-soft: #f0fdf4;
+
+  --color-surface: #ffffff;
+  --color-surface-elevated: #f9fffe;
+
+  --color-border: rgba(0, 0, 0, 0.14);
+  --color-border-soft: rgba(0, 0, 0, 0.09);
+
+  --color-primary: #16a34a;
+  --color-primary-hover: #15803d;
+  --color-primary-soft: #dcfce7;
+  --color-primary-border: rgba(22, 163, 74, 0.4);
+
+  --color-hover: rgba(22, 163, 74, 0.07);
+
+  --color-text: #0f172a;
+  --color-text-muted: #374151;
+  --color-text-weak: #6b7280;
+
+  --color-card-shadow: rgba(0, 0, 0, 0.12);
+
+  --color-success: #16a34a;
+  --color-warning: #d97706;
+  --color-danger: #dc2626;
+  --color-info: #2563eb;
+}
+
+:root[data-theme="light"] body {
+  background: linear-gradient(145deg, #22c55e 0%, #16a34a 55%, #15803d 100%);
+}
+
+:root[data-theme="light"] :is(
+    .input-like,
+    .field-input,
+    .input,
+    input,
+    select,
+    textarea,
+    table,
+    th,
+    td
+  ) {
+  border-color: var(--color-border-soft);
+}
+
+:root[data-theme="light"] :is(button, .input-like, .field-input, .input, input, select, textarea):focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+:root[data-theme="light"] [class*="text-emerald-"] {
+  color: #15803d !important;
+}
+
+:root[data-theme="light"] :is([class*="text-blue-"], [class*="text-sky-"]) {
+  color: #1d4ed8 !important;
+}
+
+:root[data-theme="light"] [class*="text-amber-"] {
+  color: #b45309 !important;
+}
+
+:root[data-theme="light"] :is([class*="text-red-"], [class*="text-rose-"]) {
+  color: #b91c1c !important;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  background:
+    radial-gradient(circle at top left, rgba(15, 23, 42, 0.06), transparent 30rem),
+    linear-gradient(
+      135deg,
+      var(--color-bg) 0%,
+      var(--color-bg-soft) 44%,
+      var(--color-bg) 100%
+    );
+  color: var(--color-text);
+}
+.input-like {
+  width: 100%;
+  border-radius: 1rem;
+  border: 1px solid var(--color-border-soft);
+  background: var(--color-bg-soft);
+  padding: 0.75rem 1rem;
+  color: var(--color-text);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-like:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-border);
+}
+
+.input-like:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+
+/* KOVIR_CLICKABLE_ANIMATIONS */
+:where(button:not(:disabled), [role="button"]) {
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    border-color 160ms ease,
+    background-color 160ms ease,
+    color 160ms ease,
+    opacity 160ms ease;
+}
+
+:where(button:not(:disabled), [role="button"]):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px var(--color-card-shadow);
+}
+
+:where(button:not(:disabled), [role="button"]):active {
+  transform: translateY(1px) scale(0.98);
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+a[href], select {
+  cursor: pointer;
+}
+
+.kovir-module-tab {
+  min-height: 3.25rem;
+  padding: 0.85rem 1.35rem;
+  font-size: 0.98rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  box-shadow: 0 10px 24px var(--color-card-shadow);
+}
+
+.kovir-module-tab:hover {
+  transform: translateY(-3px) scale(1.02);
+}
+
+.kovir-module-tab:active {
+  transform: translateY(1px) scale(0.97);
+}
+
+.kovir-module-tab-active {
+  border-color: var(--color-primary-border);
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+
+.kovir-module-tab-inactive {
+  border-color: var(--color-border-soft);
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.kovir-module-tab-inactive:hover {
+  border-color: var(--color-primary-border);
+  background: var(--color-hover);
+  color: var(--color-primary);
+}
+
+.kovir-section-nav-button {
+  box-shadow: 0 8px 20px var(--color-card-shadow);
+}
+
+.kovir-section-nav-button:hover {
+  transform: translateX(4px) translateY(-2px);
+  border-color: var(--color-primary-border);
+  background: var(--color-hover);
+}
+
+.kovir-section-nav-button:active {
+  transform: translateX(2px) translateY(1px) scale(0.98);
+}
+
+
+
+/* KOVIR_TABS_COMPACT_FIX */
+.kovir-module-tab {
+  min-height: 2.75rem;
+  padding: 0.65rem 1.1rem;
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.005em;
+  line-height: 1;
+}
+
+.kovir-module-tab:hover {
+  transform: translateY(-2px) scale(1.015);
+  box-shadow: 0 14px 28px var(--color-card-shadow);
+}
+
+.kovir-module-tab:active {
+  transform: translateY(1px) scale(0.975);
+}
+
+.kovir-compact-section-nav {
+  max-width: 100%;
+}
+
+.kovir-compact-section-nav-button {
+  min-height: 3.25rem;
+}
+
+.kovir-compact-section-nav-button:hover {
+  transform: translateX(3px) translateY(-1px);
+}
+
+
+/* KOVIR_TABS_COMPACT_FIX_SAFE */
+.kovir-module-tab {
+  min-height: 2.75rem;
+  padding: 0.65rem 1.1rem;
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.005em;
+  line-height: 1;
+}
+
+.kovir-module-tab:hover {
+  transform: translateY(-2px) scale(1.015);
+  box-shadow: 0 14px 28px var(--color-card-shadow);
+}
+
+.kovir-module-tab:active {
+  transform: translateY(1px) scale(0.975);
+}
+
+.kovir-compact-section-nav {
+  max-width: 100%;
+}
+
+.kovir-compact-section-nav-button {
+  min-height: 3rem;
+}
+
+.kovir-compact-section-nav-button:hover {
+  transform: translateX(3px) translateY(-1px);
+}
+/* KOVIR_CURRENCY_INPUT */
+.currency-input-shell {
+  position: relative;
+  width: 100%;
+}
+
+.currency-input-prefix {
+  pointer-events: none;
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  z-index: 1;
+  transform: translateY(-50%);
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+
+.currency-input {
+  padding-left: 3.25rem !important;
+}
+
+.currency-input-shell:focus-within .currency-input-prefix {
+  color: var(--color-primary);
+}
+
+
+.field-input {
+  width: 100%;
+  border-radius: 1rem;
+  border: 1px solid var(--color-border-soft);
+  background: var(--color-surface-elevated);
+  padding: 0.75rem 1rem;
+  color: var(--color-text);
+  outline: none;
+}
+
+.field-input:focus {
+  border-color: var(--color-primary-border);
+  box-shadow: 0 0 0 3px var(--color-primary-soft);
+}
+
+.input {
+  width: 100%;
+  border-radius: 1rem;
+  border: 1px solid var(--color-border-soft);
+  background: var(--color-surface-elevated);
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  color: var(--color-text);
+  outline: none;
+}
+
+.input:focus {
+  border-color: var(--color-primary-border);
+}

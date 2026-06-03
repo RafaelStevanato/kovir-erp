@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+  <rect width="48" height="48" rx="11" fill="#020617"/>
+  <defs>
+    <clipPath id="kfav-clip">
+      <rect x="17" y="24" width="14" height="15"/>
+    </clipPath>
+  </defs>
+  <!-- Green ring (right) -->
+  <ellipse cx="30" cy="24" rx="13" ry="15" fill="none" stroke="#10b981" stroke-width="4.5"/>
+  <!-- White ring (left) -->
+  <ellipse cx="18" cy="24" rx="13" ry="15" fill="none" stroke="#f8fafc" stroke-width="4.5"/>
+  <!-- Green ring bottom overlap (in front) -->
+  <g clip-path="url(#kfav-clip)">
+    <ellipse cx="30" cy="24" rx="13" ry="15" fill="none" stroke="#10b981" stroke-width="4.5"/>
+  </g>
+</svg>
