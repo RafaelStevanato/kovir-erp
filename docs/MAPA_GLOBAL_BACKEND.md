@@ -195,6 +195,8 @@ Principais variaveis:
 |---|---|
 | `ENVIRONMENT` | `development`, `dev`, `local`, `test`, `production` ou `prod`. |
 | `DATABASE_URL` | Sobrescreve `POSTGRES_*`; usar localmente apenas quando necessario. |
+| `POSTGRES_DB` / `POSTGRES_USER` / `POSTGRES_PASSWORD` / `POSTGRES_HOST` / `POSTGRES_PORT` | Conexao local do backend quando `DATABASE_URL` nao estiver definido. Para o helper Docker local, usar `localhost:5433`. |
+| `KOVIR_ERP_POSTGRES_DB` / `KOVIR_ERP_POSTGRES_USER` / `KOVIR_ERP_POSTGRES_PASSWORD` / `KOVIR_ERP_POSTGRES_HOST_PORT` | Variaveis exclusivas do `backend/docker-compose.yml` para subir somente PostgreSQL isolado do Kovir ERP. |
 | `AUTO_MIGRATE_ON_STARTUP` | Permitido apenas fora de producao; default `false`. |
 | `DDL_FALLBACK_ENABLED` | Legado local opt-in; default `false`. |
 | `ENABLE_INTERNAL_MODULES` | Habilita modulos internos apenas fora de producao. |
@@ -205,6 +207,14 @@ Principais variaveis:
 
 Observacao: exemplos de producao em `.env.example` sao genericos e nao definem
 deploy ativo. Nesta fase, o projeto continua local e sem dependencia de AWS/RDS.
+
+PostgreSQL local via Docker:
+
+- `backend/docker-compose.yml` e apenas helper de banco, nao stack completa.
+- Porta padrao no host: `5433`, apontando para `5432` dentro do container.
+- Container, volume e rede sao exclusivos: `kovir-erp-postgres`,
+  `kovir_erp_postgres_data` e `kovir_erp_postgres_net`.
+- Backend e frontend continuam rodando localmente via Python/FastAPI e Vite.
 
 ## 9. Modulos oficiais atuais
 

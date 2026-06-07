@@ -4,9 +4,11 @@
 # - The previous Kovir ERP Docker/deploy setup was discarded with the AWS/deploy
 #   cleanup and must not be treated as an active or validated baseline.
 # - If a new Docker setup is needed, design and validate it from scratch.
-# - This compose file is not an official full Kovir ERP stack; at most, treat it
-#   as a local PostgreSQL helper after fresh review of credentials and volumes.
+# - This compose file is not an official full Kovir ERP stack. It is only an
+#   isolated local PostgreSQL helper for the Kovir ERP backend.
 #
+
+name: kovir-erp-postgres
 
 services:
   postgres:
@@ -14,13 +16,15 @@ services:
     container_name: kovir-erp-postgres
     restart: unless-stopped
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:?POSTGRES_DB obrigatorio}
-      POSTGRES_USER: ${POSTGRES_USER:?POSTGRES_USER obrigatorio}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD obrigatorio}
+      POSTGRES_DB: ${KOVIR_ERP_POSTGRES_DB:-kovir_erp}
+      POSTGRES_USER: ${KOVIR_ERP_POSTGRES_USER:-kovir_erp_app}
+      POSTGRES_PASSWORD: ${KOVIR_ERP_POSTGRES_PASSWORD:?KOVIR_ERP_POSTGRES_PASSWORD obrigatorio}
     ports:
-      - "${POSTGRES_PORT:-5432}:5432"
+      - "${KOVIR_ERP_POSTGRES_HOST_PORT:-5433}:5432"
     volumes:
-      - kovir_postgres_data:/var/lib/postgresql/data
+      - kovir_erp_postgres_data:/var/lib/postgresql/data
+    networks:
+      - kovir_erp_postgres_net
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
       interval: 10s
@@ -28,4 +32,10 @@ services:
       retries: 5
 
 volumes:
-  kovir_postgres_data:
+  kovir_erp_postgres_data:
+    name: kovir_erp_postgres_data
+
+networks:
+  kovir_erp_postgres_net:
+    name: kovir_erp_postgres_net
+    driver: bridge

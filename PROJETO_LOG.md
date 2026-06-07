@@ -631,6 +631,39 @@ Decisao:
 - Antes do primeiro push publico final, subir PostgreSQL local, rodar
   `alembic upgrade head` e repetir `python -m pytest tests/regression -q`.
 
+## Sprint 25 - Helper Docker isolado para PostgreSQL local
+
+Objetivo:
+
+- Permitir subir somente o PostgreSQL do Kovir ERP em Docker sem interferir em
+  outros projetos locais, especialmente instancias que usem a porta `5432`.
+
+Entregas:
+
+- `backend/docker-compose.yml` mantido como helper exclusivo de PostgreSQL, nao
+  como stack completa do ERP.
+- Porta padrao do host alterada para `5433`, mantendo `5432` apenas dentro do
+  container.
+- Container, volume e rede dedicados: `kovir-erp-postgres`,
+  `kovir_erp_postgres_data` e `kovir_erp_postgres_net`.
+- Variaveis do compose passaram a usar prefixo `KOVIR_ERP_POSTGRES_*`, evitando
+  colisao com variaveis genericas de outros projetos.
+- `README.md`, `backend/.env.example` e mapas oficiais atualizados com o fluxo
+  local.
+
+Decisoes tecnicas:
+
+- Backend e frontend continuam rodando localmente por Python/FastAPI e Vite.
+- A senha do PostgreSQL local permanece obrigatoria e nao versionada.
+- `DATABASE_URL`, quando definido, continua tendo precedencia sobre
+  `POSTGRES_*`.
+
+Validacao:
+
+- `docker compose config`: aprovado com senha temporaria de validacao, sem subir
+  container.
+- `git diff --check`: aprovado.
+
 ## Pendencias conhecidas
 
 - Branding Fluxor deve permanecer apenas como mencao historica controlada.

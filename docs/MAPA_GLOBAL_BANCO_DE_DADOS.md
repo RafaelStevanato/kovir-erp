@@ -19,6 +19,7 @@ tratados como historicos, nao como fonte de verdade.
 - Excecao atual: `fiscal_documents.focus_response_json` e `Text`, apesar do nome sugerir JSON.
 - Registros financeiros, fiscais, estoque, conciliacao e auditoria devem ser preservados por status, cancelamento ou estorno; delecao fisica nao e o fluxo normal.
 - AWS/deploy remoto esta cancelado por enquanto. O banco deve ser lido como ambiente local de desenvolvimento, nao como stack AWS ativa.
+- O PostgreSQL local pode rodar via `backend/docker-compose.yml` apenas como helper isolado, usando porta host `5433`, container `kovir-erp-postgres`, volume `kovir_erp_postgres_data` e rede `kovir_erp_postgres_net`.
 
 ## 2. Linha do tempo das migrations
 

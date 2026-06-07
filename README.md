@@ -116,6 +116,51 @@ Modulos preparados, internos ou futuros:
 
 ## Setup local
 
+### PostgreSQL local via Docker
+
+Opcionalmente, o PostgreSQL local pode rodar isolado em Docker. Este helper usa
+container, volume, rede e porta do host exclusivos do Kovir ERP, evitando
+interferencia com outros projetos como o Kovir Cash.
+
+Porta padrao no host:
+
+```text
+localhost:5433 -> container:5432
+```
+
+Subir somente o PostgreSQL:
+
+```powershell
+cd backend
+$env:KOVIR_ERP_POSTGRES_PASSWORD="<senha-local-forte>"
+docker compose up -d postgres
+```
+
+Variaveis opcionais do compose:
+
+```text
+KOVIR_ERP_POSTGRES_DB=kovir_erp
+KOVIR_ERP_POSTGRES_USER=kovir_erp_app
+KOVIR_ERP_POSTGRES_HOST_PORT=5433
+```
+
+No `backend/.env`, aponte o backend para a mesma porta e credenciais:
+
+```text
+POSTGRES_DB="kovir_erp"
+POSTGRES_USER="kovir_erp_app"
+POSTGRES_PASSWORD="<senha-local-forte>"
+POSTGRES_HOST="localhost"
+POSTGRES_PORT="5433"
+```
+
+Se `DATABASE_URL` estiver definido, ele sobrescreve `POSTGRES_*`. Nesse caso,
+ajuste para:
+
+```text
+DATABASE_URL="postgresql+psycopg://kovir_erp_app:<senha-local-forte>@localhost:5433/kovir_erp"
+```
+
 ### Backend
 
 ```powershell
@@ -211,13 +256,17 @@ alembic upgrade head
 
 ## Docker
 
-Docker nao e o caminho operacional atual do Kovir ERP.
+Docker nao e o caminho operacional atual para rodar o Kovir ERP completo.
 
 O desenvolvimento oficial segue local com Python, PostgreSQL e Vite. Os artefatos
 anteriores de Docker/deploy/AWS foram descartados durante a limpeza do projeto.
-Se um novo setup Docker for necessario, ele deve ser desenhado do zero, incluindo
-politica de secrets, rede, volumes, migrations, healthchecks, build de frontend,
-logs e validacao de seguranca.
+O `backend/docker-compose.yml` atual e apenas um helper local isolado para
+PostgreSQL, com porta padrao `5433`, volume `kovir_erp_postgres_data`, rede
+`kovir_erp_postgres_net` e container `kovir-erp-postgres`.
+
+Se um novo setup Docker completo for necessario, ele deve ser desenhado do zero,
+incluindo politica de secrets, rede, volumes, migrations, healthchecks, build de
+frontend, logs e validacao de seguranca.
 
 ## Observacoes
 
